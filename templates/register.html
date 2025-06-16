@@ -1,0 +1,125 @@
+<div class="register-panel main-content">
+  <h2 class="panel-title">Register New POI and Admin</h2>
+
+  <form name="registerForm" ng-submit="vm.register()" novalidate class="card">
+    <fieldset class="styled-fieldset">
+      <legend>POI Information</legend>
+
+      <div class="form-group">
+        <label for="poiName">Name:</label>
+        <input
+          type="text"
+          id="poiName"
+          name="poiName"
+          ng-model="vm.formData.name"
+          required
+          placeholder="e.g. My hospital"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="poiCategory">Category:</label>
+        <input
+          type="text"
+          id="poiCategory"
+          name="poiCategory"
+          ng-model="vm.formData.category"
+          required
+          placeholder="e.g. hospital"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="poiAddress">Address:</label>
+        <input
+          type="text"
+          id="poiAddress"
+          name="poiAddress"
+          ng-model="vm.formData.address"
+          required
+          placeholder="e.g. 123 Main St"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="poiLatitude">Latitude:</label>
+        <input
+          type="number"
+          step="any"
+          id="poiLatitude"
+          name="poiLatitude"
+          ng-model="vm.formData.latitude"
+          required
+          placeholder="e.g. -6.200000"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="poiLongitude">Longitude:</label>
+        <input
+          type="number"
+          step="any"
+          id="poiLongitude"
+          name="poiLongitude"
+          ng-model="vm.formData.longitude"
+          required
+          placeholder="e.g. 106.816666"
+        />
+      </div>
+    </fieldset>
+
+    <fieldset class="styled-fieldset">
+      <legend>Admin Information</legend>
+
+      <div class="form-group">
+        <label for="adminTelno">Phone (Telno):</label>
+        <input
+          type="text"
+          id="adminTelno"
+          name="adminTelno"
+          ng-model="vm.formData.telno"
+          required
+          placeholder="e.g. +62123456789"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="adminEmail">Email:</label>
+        <input
+          type="email"
+          id="adminEmail"
+          name="adminEmail"
+          ng-model="vm.formData.email"
+          required
+          placeholder="e.g. admin@example.com"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="adminPassword">Password:</label>
+        <input
+          type="password"
+          id="adminPassword"
+          name="adminPassword"
+          ng-model="vm.formData.password"
+          required
+          placeholder="Choose a password"
+          minlength="6"
+        />
+      </div>
+    </fieldset>
+
+    <div style="margin-top: 1rem;">
+      <button type="submit" ng-disabled="registerForm.$invalid">
+        Register
+      </button>
+    </div>
+
+    <div class="error" ng-if="vm.errorMessage">
+      {{ vm.errorMessage }}
+    </div>
+    <div class="success" ng-if="vm.successMessage">
+      {{ vm.successMessage }}
+    </div>
+  </form>
+</div>

@@ -1,0 +1,83 @@
+<div class="verify-panel">
+  <h2 class="panel-title">Verify Items</h2>
+
+  <section ng-if="vm.adminLevel === 1">
+    <h3>Unverified POIs</h3>
+    <ul id="poi-list">
+      <li ng-repeat="poi in vm.pois">
+        <strong>ID:</strong> {{ poi.id }}<br />
+        <strong>Name:</strong> {{ poi.name }}<br />
+        <strong>Category:</strong> {{ poi.category }}<br />
+        <strong>Address:</strong> {{ poi.address || 'N/A' }}<br />
+        <strong>Admin Phone:</strong> {{ poi.adminTel }}<br />
+        <strong>Admin Email:</strong> {{ poi.adminEmail }}<br />
+        <a
+          href="https://www.google.com/maps?q={{ poi.latitude }},{{ poi.longitude }}"
+          target="_blank"
+        >View on Google Maps</a><br />
+        <button ng-click="vm.verifyPoi(poi.id)">Verify</button>
+        <button ng-click="vm.denyPoi(poi.id)">Deny</button>
+      </li>
+      <li ng-if="vm.pois.length === 0">
+        No unverified POIs found.
+      </li>
+    </ul>
+  </section>
+
+  <section ng-if="vm.adminLevel === 2">
+    <h3>Unverified Doctors (Your POI)</h3>
+    <ul id="doctor-list">
+      <li ng-repeat="doc in vm.doctors">
+        <strong>Username:</strong> {{ doc.username }}<br />
+        <strong>Email:</strong> {{ doc.email }}<br />
+        <div ng-if="doc.imageBase64">
+          <img
+            ng-src="data:image/jpeg;base64,{{ doc.imageBase64 }}"
+            alt="Evidence"
+            style="max-width: 200px; display: block; margin-top: 8px;"
+          />
+        </div>
+        <div ng-if="!doc.imageBase64">
+          <span style="color:red;">No evidence image</span>
+        </div>
+        <button ng-click="vm.verifyDoctor(doc.user_id)">Verify</button>
+        <button ng-click="vm.denyDoctor(doc.user_id)">Deny</button>
+      </li>
+      <li ng-if="vm.doctors.length === 0">
+        No unverified doctors found for your POI.
+      </li>
+    </ul>
+  </section>
+
+  <hr ng-if="vm.adminLevel === 2" />
+
+  <section ng-if="vm.adminLevel === 2">
+    <h3>Unverified Customer Services (Your POI)</h3>
+    <ul id="customer-service-list">
+      <li ng-repeat="cs in vm.customerServices">
+        <strong>Username:</strong> {{ cs.username }}<br />
+        <strong>Email:</strong> {{ cs.email }}<br />
+        <strong>Phone:</strong> {{ cs.telno }}<br />
+        <div ng-if="cs.imageBase64">
+          <img
+            ng-src="data:image/jpeg;base64,{{ cs.imageBase64 }}"
+            alt="Evidence"
+            style="max-width: 200px; display: block; margin-top: 8px;"
+          />
+        </div>
+        <div ng-if="!cs.imageBase64">
+          <span style="color:red;">No evidence image</span>
+        </div>
+        <button ng-click="vm.verifyCustomerService(cs.user_id)">Verify</button>
+        <button ng-click="vm.denyCustomerService(cs.user_id)">Deny</button>
+      </li>
+      <li ng-if="vm.customerServices.length === 0">
+        No unverified customer services found for your POI.
+      </li>
+    </ul>
+  </section>
+
+  <div ng-if="vm.adminLevel !== 1 && vm.adminLevel !== 2">
+    <p style="color: red;">You do not have permission to view this page.</p>
+  </div>
+</div>

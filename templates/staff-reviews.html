@@ -1,0 +1,45 @@
+<div class="staff-reviews-panel main-content">
+  <h2 class="panel-title">Staff Reviews (Your POI)</h2>
+
+  <div ng-if="vm.loading" class="info-message">Loading review data…</div>
+  <div ng-if="vm.errorMessage" class="error-message">{{ vm.errorMessage }}</div>
+
+  <div ng-if="!vm.loading && !vm.errorMessage" class="card">
+    <table class="reviews-table">
+      <thead>
+        <tr>
+          <th>Staff ID</th>
+          <th>Name</th>
+          <th>Role</th>
+          <th>Reviews</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="entry in vm.staffReviews">
+          <td>{{ entry.staffId }}</td>
+          <td>{{ entry.name }}</td>
+          <td>{{ entry.role }}</td>
+          <td>
+            <ul class="review-list">
+              <li ng-repeat="r in entry.reviews">
+                <div class="review-header">
+                  <strong>Rating:</strong> {{ r.score }}
+                </div>
+                <div class="review-body">
+                  “{{ r.notes }}” <br>
+                  <small>{{ r.created_at }}</small>
+                </div>
+              </li>
+              <li ng-if="entry.reviews.length === 0" class="empty-note">
+                No reviews
+              </li>
+            </ul>
+          </td>
+        </tr>
+        <tr ng-if="vm.staffReviews.length === 0">
+          <td colspan="4" class="empty-note">No staff found for your POI.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -1,0 +1,25 @@
+<div class="staff-activity-panel main-content" ng-controller="ChatsByPoiController as vm">
+  <h2 class="panel-title">Chats by POI</h2>
+
+  <div class="card">
+    <table class="activity-table">
+      <thead>
+        <tr>
+          <th>POI ID</th>
+          <th>POI Name</th>
+          <th>Chat Count</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="p in vm.byPoi">
+          <td>{{ p.poiId }}</td>
+          <td>{{ p.name }}</td>
+          <td>{{ p.count }}</td>
+        </tr>
+        <tr ng-if="!vm.byPoi.length">
+          <td colspan="3" class="empty-note">No data available.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

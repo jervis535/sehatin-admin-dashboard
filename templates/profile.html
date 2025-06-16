@@ -1,0 +1,117 @@
+<div ng-controller="ProfileController as vm" class="main-content">
+  <h2 class="panel-title">My Profile</h2>
+
+  <div class="card">
+    <h3>Update Personal Info</h3>
+    <form name="personalForm" ng-submit="vm.updatePersonalInfo()" novalidate>
+      <div class="form-group">
+        <label>Email:</label>
+        <input type="email" ng-model="vm.admin.email" required name="email" />
+      </div>
+
+      <div class="form-group">
+        <label>Telephone:</label>
+        <input type="text" ng-model="vm.admin.telno" required name="telno" />
+      </div>
+      <div class="form-group">
+        <label>Current Email:</label>
+        <input type="email" ng-model="vm.currentEmailInfo" required name="currentEmailInfo" />
+      </div>
+      <div class="form-group">
+        <label>Current Password:</label>
+        <input type="password" ng-model="vm.currentPasswordInfo" required name="currentPasswordInfo" />
+      </div>
+
+      <button type="submit" ng-disabled="personalForm.$invalid || !vm.currentEmailInfo || !vm.currentPasswordInfo">
+        Update Info
+      </button>
+    </form>
+  </div>
+
+  <div class="card" ng-if="vm.isLevel2">
+    <h3>My POI</h3>
+    <form name="poiForm" ng-submit="vm.updatePoiInfo()" novalidate>
+      <div class="form-group">
+        <label>Name:</label>
+        <input type="text" ng-model="vm.poi.name" required name="poiName" />
+      </div>
+
+      <div class="form-group">
+        <label>Category:</label>
+        <input type="text" ng-model="vm.poi.category" required name="poiCategory" />
+      </div>
+
+      <div class="form-group">
+        <label>Address:</label>
+        <input type="text" ng-model="vm.poi.address" name="poiAddress" />
+      </div>
+
+      <div class="form-group">
+        <label>Latitude:</label>
+        <input type="number" step="any" ng-model="vm.poi.latitude" name="poiLat" />
+      </div>
+
+      <div class="form-group">
+        <label>Longitude:</label>
+        <input type="number" step="any" ng-model="vm.poi.longitude" name="poiLon" />
+      </div>
+
+      <div class="form-group">
+        <label>Current Email:</label>
+        <input type="email" ng-model="vm.currentEmailPoi" required name="currentEmailPoi" />
+      </div>
+      <div class="form-group">
+        <label>Current Password:</label>
+        <input type="password" ng-model="vm.currentPasswordPoi" required name="currentPasswordPoi" />
+      </div>
+
+      <button type="submit" ng-disabled="poiForm.$invalid || !vm.currentEmailPoi || !vm.currentPasswordPoi">
+        Update POI Info
+      </button>
+    </form>
+  </div>
+
+  <div class="card">
+    <h3>Change Password</h3>
+    <form name="passwordForm" ng-submit="vm.updatePassword()" novalidate>
+      <div class="form-group">
+        <label>Current Email:</label>
+        <input type="email" ng-model="vm.currentEmailPwd" required name="currentEmailPwd" />
+      </div>
+
+      <div class="form-group">
+        <label>Current Password:</label>
+        <input type="password" ng-model="vm.currentPasswordPwd" required name="currentPasswordPwd" />
+      </div>
+
+      <div class="form-group">
+        <label>New Password:</label>
+        <input type="password" ng-model="vm.newPassword" ng-minlength="6" required name="newPassword" />
+      </div>
+
+      <div class="form-group">
+        <label>Repeat New Password:</label>
+        <input type="password" ng-model="vm.confirmPassword" required name="confirmPassword" />
+      </div>
+
+      <div class="error" ng-if="vm.newPassword !== vm.confirmPassword">
+        New passwords do not match.
+      </div>
+
+      <button type="submit" ng-disabled="passwordForm.$invalid || vm.newPassword !== vm.confirmPassword || !vm.currentEmailPwd">
+        Change Password
+      </button>
+    </form>
+  </div>
+
+  <div style="margin-top: 2rem;">
+    <button type="button" ng-click="vm.logout()" class="logout-btn">Logout</button>
+  </div>
+
+  <div class="error" ng-if="vm.errorMessage">
+    {{ vm.errorMessage }}
+  </div>
+  <div class="success" ng-if="vm.successMessage">
+    {{ vm.successMessage }}
+  </div>
+</div>

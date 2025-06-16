@@ -1,0 +1,22 @@
+<div class="main-content" ng-controller="PaymentsRecapController as vm">
+  <h2 class="panel-title">Payments Recap</h2>
+
+  <div class="button-group">
+    <button ng-class="{ active: vm.mode==='daily' }"
+            ng-click="vm.switchMode('daily')">
+      Daily
+    </button>
+    <button ng-class="{ active: vm.mode==='monthly' }"
+            ng-click="vm.switchMode('monthly')">
+      Monthly
+    </button>
+  </div>
+
+  <div ng-if="vm.loading">Loading…</div>
+  <div class="error" ng-if="vm.error">{{ vm.error }}</div>
+
+  <div ng-if="!vm.loading && !vm.error" class="chart-container">
+    <canvas id="paymentsChart" width="400" height="200"></canvas>
+  </div>
+  </table>
+</div>

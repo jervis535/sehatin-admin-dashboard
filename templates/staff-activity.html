@@ -1,0 +1,56 @@
+<div class="staff-activity-panel main-content">
+  <h2 class="panel-title">Staff Activity (Your POI)</h2>
+
+  <div ng-if="vm.loading" class="info-message">
+    Loading activity data…
+  </div>
+  <div ng-if="vm.errorMessage" class="error-message">
+    {{ vm.errorMessage }}
+  </div>
+
+  <div ng-if="!vm.loading && !vm.errorMessage">
+    <div class="card">
+      <table class="activity-table">
+        <thead>
+          <tr>
+            <th>Staff ID</th>
+            <th>Name</th>
+            <th>Role</th>
+            <th>Daily Chat Counts</th>
+            <th>Monthly Chat Counts</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="entry in vm.staffActivities">
+            <td>{{ entry.staffId }}</td>
+            <td>{{ entry.name }}</td>
+            <td>{{ entry.role }}</td>
+            <td>
+              <ul class="count-list">
+                <li ng-repeat="d in entry.dailyCounts">
+                  <strong>{{ d.period }}</strong>: {{ d.chat_count }}
+                </li>
+                <li ng-if="entry.dailyCounts.length === 0" class="empty-note">
+                  No chats
+                </li>
+              </ul>
+            </td>
+            <td>
+              <ul class="count-list">
+                <li ng-repeat="m in entry.monthlyCounts">
+                  <strong>{{ m.period }}</strong>: {{ m.chat_count }}
+                </li>
+                <li ng-if="entry.monthlyCounts.length === 0" class="empty-note">
+                  No chats
+                </li>
+              </ul>
+            </td>
+          </tr>
+          <tr ng-if="vm.staffActivities.length === 0">
+            <td colspan="5" class="empty-note">No staff found for your POI.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

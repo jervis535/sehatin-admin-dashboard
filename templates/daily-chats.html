@@ -1,0 +1,25 @@
+<div class="staff-activity-panel main-content">
+  <h2 class="panel-title">Overall Activity Statistics</h2>
+
+  <div ng-if="vm.loading" class="info-message">
+    Loading activity data…
+  </div>
+  <div ng-if="vm.errorMessage" class="error-message">
+    {{ vm.errorMessage }}
+  </div>
+
+  <div class="controls">
+    <select ng-model="vm.selectedType" ng-change="vm.updateChart()">
+      <option value="consultation">Consultation</option>
+      <option value="service">Service</option>
+    </select>
+    <select ng-model="vm.selectedPeriod" ng-change="vm.updateChart()">
+      <option value="day">Daily</option>
+      <option value="month">Monthly</option>
+    </select>
+  </div>
+
+  <div ng-if="!vm.loading && !vm.errorMessage">
+    <canvas id="activityChart" width="400" height="200"></canvas>
+  </div>
+</div>

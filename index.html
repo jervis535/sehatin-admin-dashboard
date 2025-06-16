@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="adminApp">
+<head>
+  <link rel="stylesheet" href="style.css" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+</head>
+<body>
+
+  <nav class="sidebar" ng-controller="SidebarController as sb">
+  <h2>Admin Dashboard</h2>
+
+  <a
+    ng-href="#!/register"
+    ng-if="!sb.isLoggedIn()"
+    ng-class="{ active: isActive('/register') }"
+    >Register</a
+  >
+  <a
+    ng-href="#!/login"
+    ng-if="!sb.isLoggedIn()"
+    ng-class="{ active: isActive('/login') }"
+    >Login</a
+  >
+
+  <a
+    ng-href="#!/verify"
+    ng-if="sb.isLoggedIn() && sb.isLevel1()"
+    ng-class="{ active: isActive('/verify') }"
+    >Verify POIs</a
+  >
+
+  <a
+    ng-href="#!/verify"
+    ng-if="sb.isLoggedIn() && sb.isLevel2()"
+    ng-class="{ active: isActive('/verify') }"
+    >Verify Doctors/Customer‐Services</a
+  >
+
+  <a
+    ng-href="#!/staff-activity"
+    ng-if="sb.isLoggedIn() && sb.isLevel2()"
+    ng-class="{ active: isActive('/staff-activity') }"
+    >Staff Activity</a
+  >
+
+  <a
+    ng-href="#!/staff-reviews"
+    ng-if="sb.isLoggedIn() && sb.isLevel2()"
+    ng-class="{ active: isActive('/staff-reviews') }"
+    >Staff Reviews</a
+  >
+  <a
+    ng-href="#!/poi-activity"
+    ng-if="sb.isLoggedIn() && sb.isLevel2()"
+    ng-class="{ active: isActive('/poi-activity') }"
+    >POI Activity</a
+  >
+
+  <a ng-href="#!/profile"
+    ng-if="sb.isLoggedIn()"
+    ng-class="{active:isActive('/profile')}">
+    Profile
+  </a>
+
+  <a ng-href="#!/daily-chats"
+    ng-if="sb.isLoggedIn() && sb.isLevel1()"
+    ng-class="{active:isActive('/daily-chats')}">
+    Daily Chats
+  </a>
+  <a ng-href="#!/chats-by-poi"
+    ng-if="sb.isLoggedIn() && sb.isLevel1()"
+    ng-class="{active:isActive('/chats-by-poi')}">
+    Chats by POI
+  </a>
+  <a ng-href="#!/payments-recap"
+    ng-if="sb.isLoggedIn() && sb.isLevel1()"
+    ng-class="{ active: isActive('/payments-recap') }">
+    Payment Recap
+  </a>
+
+  <a
+    href=""
+    ng-if="sb.isLoggedIn()"
+    ng-click="sb.logout()"
+    style="margin-top: 1rem; color: #e74c3c;"
+    >Logout</a
+  >
+</nav>
+
+
+  <main class="main-content">
+    <div ng-view></div>
+  </main>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.3/angular.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.3/angular-route.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <script src="js/app.module.js"></script>
+  <script src="js/app.routes.js"></script>
+  <script src="js/services/auth.service.js"></script>
+  <script src="js/services/api.service.js"></script>
+  <script src="js/controllers/register.controller.js"></script>
+  <script src="js/controllers/login.controller.js"></script>
+  <script src="js/controllers/verify.controller.js"></script>
+  <script src="js/controllers/chart.controller.js"></script>
+  <script src="js/controllers/staff-activity.controller.js"></script>
+  <script src="js/controllers/staff-review.controller.js"></script>
+  <script src="js/controllers/profile.controller.js"></script>
+  <script src="js/controllers/daily-chats.controller.js"></script>
+  <script src="js/controllers/chats-by-poi.controller.js"></script>
+  <script src="js/controllers/payment-recap.controller.js"></script>
+  <script src="js/controllers/poi-activity.controller.js"></script>
+
+
+
+  <script>
+    (function () {
+      'use strict';
+
+      angular
+        .module('adminApp')
+        .controller('SidebarController', SidebarController);
+
+      SidebarController.$inject = ['AuthService', '$location'];
+      function SidebarController(AuthService, $location) {
+        const sb = this;
+        sb.isLoggedIn = AuthService.isAuthenticated;
+        sb.isLevel1   = () => AuthService.getLevel() === '1';
+        sb.isLevel2   = () => AuthService.getLevel() === '2';
+        sb.logout     = () => {
+          AuthService.logout();
+          $location.path('/login');
+        };
+      }
+    })();
+  </script>
+</body>
+</html>
